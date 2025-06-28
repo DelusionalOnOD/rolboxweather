@@ -20,7 +20,9 @@ app.get('/weather', async (req, res) => {
 
     const data = weatherResponse.data;
 
-    const weatherMain = data.weather[0].main.toLowerCase();
+    // Extract all weather conditions as lowercase strings
+    const weatherConditions = data.weather.map(condition => condition.main.toLowerCase());
+
     const temperature = data.main.temp;
     const city = data.name;
 
@@ -30,7 +32,7 @@ app.get('/weather', async (req, res) => {
     const localHour = localDate.getUTCHours();
 
     res.json({
-      weather: weatherMain,
+      weather: weatherConditions,  // <-- array of weather conditions
       temperature: temperature,
       city: city,
       localHour: localHour
